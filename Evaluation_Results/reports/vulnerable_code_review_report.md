@@ -1,0 +1,17 @@
+# Secure Code Review Report\n\n- **File:** pasted_code.py\n- **Generated (UTC):** 2026-10-13T19:39:14\n- **Tools executed:** Ruff, Bandit\n- **Finding count:** 3\n\n## Findings\n\n### Low — Consider possible security implications associated with the subprocess module.\n- Tool/rule: Bandit / B404\n- Line: 1\n- Evidence: `1 import subprocess
+2 
+3 PASSWORD = "demo-password-do-not-use"
+`\n- Recommendation: Inspect the evidence and follow the tool's remediation guidance.\n\n### Low — Possible hardcoded password: 'demo-password-do-not-use'\n- Tool/rule: Bandit / B105\n- Line: 3\n- Evidence: `2 
+3 PASSWORD = "demo-password-do-not-use"
+4 
+`\n- Recommendation: Inspect the evidence and follow the tool's remediation guidance.\n\n### High — subprocess call with shell=True identified, security issue.\n- Tool/rule: Bandit / B602\n- Line: 6\n- Evidence: `5 def run_command(user_input):
+6     return subprocess.call(user_input, shell=True)
+`\n- Recommendation: Inspect the evidence and follow the tool's remediation guidance.\n\n## Retrieved guideline evidence\n\n### [1] data\guidelines\coding_guidelines_demo.md (chunk 3)\nSection: 2. Secrets and Credential Management
+Do not hardcode passwords, API keys, access tokens, private keys, or database credentials in source code. Store secrets in environment variables or an approved secrets manager. Never commit real credentials to source control. If a credential has been exposed, revoke or rotate it. Replacing a visible secret in a later commit does not remove it from the repository history.\n\n### [2] data\guidelines\coding_guidelines_demo.md (chunk 2)\nSection: 1. Secure Subprocess Execution
+Avoid passing untrusted input to shell commands. Using subprocess functions with shell=True can enable command injection if an attacker controls the input. Prefer a list of arguments with shell=False. Validate input against an allowlist of permitted commands and arguments. Avoid constructing shell commands through string concatenation or interpolation. Example: subprocess.run(["git", "status"], shell=False, check=True)\n\n### [3] data\guidelines\coding_guidelines_demo.md (chunk 8)\nSection: 7. Cryptography
+Use established, maintained cryptographic libraries. Do not invent custom cryptographic algorithms. Store passwords using an appropriate password hashing algorithm rather than reversible encryption or plaintext. Use secure random-number generators for security-sensitive tokens.\n\n## AI-assisted explanation\n\n**LLM not configured.** Static analysis and guideline retrieval still run. Set `OPENAI_API_KEY` and `OPENAI_MODEL` in your local `.env` file to enable optional explanations. Do not commit `.env` to GitHub.\n\n### Findings summary\n- **Low** — line 1: Consider possible security implications associated with the subprocess module. (Bandit B404)\n- **Low** — line 3: Possible hardcoded password: 'demo-password-do-not-use' (Bandit B105)\n- **High** — line 6: subprocess call with shell=True identified, security issue. (Bandit B602)\n\n## Limitations\n\nThis report is advisory. Analyzer coverage is incomplete; AI output may be wrong. Validate fixes with tests, static analysis, and qualified human review.\n\n## Reviewed code (submitted input)\n\n```python\nimport subprocess
+
+PASSWORD = "demo-password-do-not-use"
+
+def run_command(user_input):
+    return subprocess.call(user_input, shell=True)\n```\n

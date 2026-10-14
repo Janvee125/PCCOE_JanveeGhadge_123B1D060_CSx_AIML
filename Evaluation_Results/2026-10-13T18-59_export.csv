@@ -1,0 +1,24 @@
+﻿tool,rule_id,severity,line,issue,evidence,recommendation
+Ruff,I001,Medium,1,Import block is un-sorted or un-formatted,Organize imports,Review the reported rule and apply a suitable fix.
+Bandit,B404,Low,1,Consider possible security implications associated with the subprocess module.,"1 import subprocess
+2 
+3 def check_status():
+",Inspect the evidence and follow the tool's remediation guidance.
+Bandit,B607,Low,4,Starting a process with a partial executable path,"3 def check_status():
+4     result = subprocess.run(
+5         [""git"", ""status""],
+6         shell=False,
+7         capture_output=True,
+8         text=True,
+9         check=False
+10     )
+11     return result.stdout
+",Inspect the evidence and follow the tool's remediation guidance.
+Bandit,B603,Low,6,subprocess call - check for execution of untrusted input.,"5         [""git"", ""status""],
+6         shell=False,
+7         capture_output=True,
+8         text=True,
+9         check=False
+10     )
+11     return result.stdout
+",Inspect the evidence and follow the tool's remediation guidance.

@@ -1,0 +1,12 @@
+﻿tool,rule_id,severity,line,issue,evidence,recommendation
+Bandit,B404,Low,1,Consider possible security implications associated with the subprocess module.,"1 import subprocess
+2 
+3 PASSWORD = ""demo-password-do-not-use""
+",Inspect the evidence and follow the tool's remediation guidance.
+Bandit,B105,Low,3,Possible hardcoded password: 'demo-password-do-not-use',"2 
+3 PASSWORD = ""demo-password-do-not-use""
+4 
+",Inspect the evidence and follow the tool's remediation guidance.
+Bandit,B602,High,6,"subprocess call with shell=True identified, security issue.","5 def run_command(user_input):
+6     return subprocess.call(user_input, shell=True)
+",Inspect the evidence and follow the tool's remediation guidance.

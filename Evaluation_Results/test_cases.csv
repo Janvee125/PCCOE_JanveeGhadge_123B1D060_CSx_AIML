@@ -1,0 +1,7 @@
+case_id,filename,expected_issue,expected_area,actual_result,findings_count,status
+TC01,sample_vulnerable.py,Hardcoded demo credential,security,Bandit B105: possible hardcoded password; B404: subprocess module; B602: shell=True,3,Pass
+TC02,sample_vulnerable.py,Subprocess shell usage,security,Bandit B602 reported for shell=True,1,Pass
+TC03,sample_clean.py,No known security issue in simple function,control,No findings for calculate_total function,0,Pass
+TC04,syntax_error.py,Syntax error,robustness,Python parser reported expected ':' at line 1,1,Pass
+TC05,safer_subprocess.py,"Safer subprocess execution with shell=False",security,"Ruff I001; Bandit B404, B607 and B603; B602 absent",4,Pass
+TC06,input_validation.py,Allowlisted user role,security,No static-analysis findings returned,0,Pass
